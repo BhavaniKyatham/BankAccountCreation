@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 @Entity
+@SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "usersequence")
 public class User {
 	@Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgen")
 	private int userId;
 	private String userName;
 	private int age;
