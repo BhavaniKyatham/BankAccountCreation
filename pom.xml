@@ -24,6 +24,7 @@
 	    src/main/java/com/example/bankAccount/dto/*.java,
 	    src/main/java/com/example/bankAccount/service/*.java,
 	    src/main/java/com/example/bankAccount/dao/*.java,
+	    src/main/java/com/example/bankAccount/helper/UserHelper.java,
 	    src/main/java/com/example/bankAccount/exceptions/*.java
 		</sonar.coverage.exclusions>
 	</properties>
