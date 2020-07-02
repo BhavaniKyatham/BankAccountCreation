@@ -5,6 +5,10 @@ import com.example.bankAccount.dto.LoginResponseDto;
 import com.example.bankAccount.dto.UserRequestDto;
 import com.example.bankAccount.dto.UserResponseDto;
 
+/**
+ * @author V.manasa
+ *
+ */
 public interface UserService {
 
 	UserResponseDto userRegister(UserRequestDto userRequestDto);

@@ -16,6 +16,16 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<jacoco.version>0.8.2</jacoco.version>
+		<sonar.coverage.exclusions>
+		src/main/java/com/example/bankAccount/BankAccountCreationApplication.java,
+		src/main/java/com/example/bankAccount/SwaggerConfig.java,
+	    src/main/java/com/example/bankAccount/model/*.java,
+	    src/main/java/com/example/bankAccount/dto/*.java,
+	    src/main/java/com/example/bankAccount/service/*.java,
+	    src/main/java/com/example/bankAccount/dao/*.java,
+	    src/main/java/com/example/bankAccount/exceptions/*.java
+		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -50,7 +60,12 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.6.0.1398</version>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>

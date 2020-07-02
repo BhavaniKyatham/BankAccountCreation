@@ -1,7 +1,5 @@
 package com.example.bankAccount.serviceImpl;
 
-
-
 import java.util.Optional;
 
 import org.apache.commons.logging.Log;
@@ -22,11 +20,16 @@ import com.example.bankAccount.model.Account;
 import com.example.bankAccount.model.AccountType;
 import com.example.bankAccount.model.User;
 import com.example.bankAccount.service.UserService;
+
+/**
+ * @author v.manasa This class is used for User related operations like userLogin and register User
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	private static Log logger = LogFactory.getLog(UserServiceImpl.class);
-	
+
 	@Autowired
 	UserDao userDao;
 	@Autowired
@@ -34,56 +37,54 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponseDto userRegister(UserRequestDto userRequestDto) {
-		User user=new User();
-		Account account=new Account();
-		UserHelper helper=new UserHelper();
-		UserResponseDto responseDto=new UserResponseDto();
-		
-		if(userRequestDto.getAge()>=18)
-		{
-			BeanUtils.copyProperties(userRequestDto, user );
+		User user = new User();
+		Account account = new Account();
+		UserHelper helper = new UserHelper();
+		UserResponseDto responseDto = new UserResponseDto();
+
+		if (userRequestDto.getAge() >= 18) {
+			BeanUtils.copyProperties(userRequestDto, user);
 			user.setCustomerId(helper.getCustomerId());
 			user.setPassword(helper.generatePassword(6));
-			User user1=userDao.save(user);
-			
+			User user1 = userDao.save(user);
+
 			account.setAccountNumber(helper.generateAccountNumber());
 			account.setAccountType(AccountType.savings);
 			account.setBalance(5000);
 			account.setUserId(user1.getUserId());
 			accountDao.save(account);
-			
-			BeanUtils.copyProperties(user1,responseDto );
+
+			BeanUtils.copyProperties(user1, responseDto);
 			responseDto.setCustomerId(user1.getCustomerId());
 			responseDto.setPassword(user1.getPassword());
 			responseDto.setMessage("user registered succeefully");
 			responseDto.setStatusCode(HttpStatus.OK.value());
 			return responseDto;
 		}
-		 responseDto.setMessage("for registaration user age should be greater than 18 years!!!");
-         responseDto.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-         return responseDto;
+		responseDto.setMessage("for registaration user age should be greater than 18 years!!!");
+		responseDto.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+		return responseDto;
 	}
 
 	@Override
 	public LoginResponseDto userLogin(LoginRequestDto loginRequestDto) {
-		
-		 LoginResponseDto loginResponseDto = new LoginResponseDto();
-         Optional<User> user1 = userDao.findByCustomerIdAndPassword(loginRequestDto.getCustomerId(), loginRequestDto.getPassword());
-                 
-         if (user1.isPresent()) {
-             logger.info("user logged in successfully");
-             loginResponseDto.setUserId(user1.get().getUserId());
-             loginResponseDto.setMessage("User logged in Successfully");
-             loginResponseDto.setStatusCode(HttpStatus.OK.value());
-             
-             return loginResponseDto;
-         }  
-         loginResponseDto.setMessage("Invalid credentials!!!");
-         loginResponseDto.setStatusCode(HttpStatus.UNAUTHORIZED.value());
-         return loginResponseDto;
+
+		LoginResponseDto loginResponseDto = new LoginResponseDto();
+		Optional<User> user1 = userDao.findByCustomerIdAndPassword(loginRequestDto.getCustomerId(),
+				loginRequestDto.getPassword());
+
+		if (user1.isPresent()) {
+			logger.info("user logged in successfully");
+			loginResponseDto.setUserId(user1.get().getUserId());
+			loginResponseDto.setMessage("User logged in Successfully");
+			loginResponseDto.setStatusCode(HttpStatus.OK.value());
+
+			return loginResponseDto;
+		}
+		loginResponseDto.setMessage("Invalid credentials!!!");
+		loginResponseDto.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+		return loginResponseDto;
 
 	}
-
-	
 
 }
