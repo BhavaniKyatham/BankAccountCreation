@@ -35,6 +35,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	AccountDao accountDao;
 
+	/**
+	 *this method is used for registration and when the user register it will generate accountnumber and customerid and password
+	 */
 	@Override
 	public UserResponseDto userRegister(UserRequestDto userRequestDto) {
 		User user = new User();
@@ -66,6 +69,9 @@ public class UserServiceImpl implements UserService {
 		return responseDto;
 	}
 
+	/**
+	 *This method is used for user login with customerid and password
+	 */
 	@Override
 	public LoginResponseDto userLogin(LoginRequestDto loginRequestDto) {
 

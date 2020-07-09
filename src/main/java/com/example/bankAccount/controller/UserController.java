@@ -50,5 +50,9 @@ public class UserController {
 		logger.info("inside user login method");
 		return new ResponseEntity<>(userService.userLogin(loginRequestDto), HttpStatus.OK);
 	}
+	
+	
+
+  
 
 }
